@@ -1,0 +1,108 @@
+\name{gsealmPerm}
+\alias{gsealmPerm}
+\title{Nonparametric inference for linear models in Gene-Set-Enrichment
+  Analysis (GSEA)}
+\description{
+Provides permutation-based p-values for a main effect at the gene-set
+level, potentially adjusting for the effect of other variables via a
+linear model. This is a generalization and upgrade of \code{\link[Category]{gseattperm}}.
+}
+\usage{
+gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,...)
+}
+\arguments{
+  \item{eSet}{ An \code{ExpressionSet} object.}
+  \item{formula}{ An object of class \code{\link{formula}} (or one that can be coerced to
+          that class), specifying only the right-hand side starting with
+      the '~' symbol. The LHS is automatically set as the expression
+      levels provided in  \code{eSet}. The names of all predictors must
+    exist in the phenotypic data of \code{eSet}. See more below in "Details".}
+  \item{mat}{ A 0/1 incidence matrix with each row representing a gene set
+          and each column representing a gene.  A 1 indicates membership of a gene in a gene set. }
+  \item{nperm}{Number of permutations used to simulate the reference
+          null distribution.}
+   \item{na.rm}{Should missing observations be ignored? }
+  \item{...}{Additional parameters passed on to \code{\link{GSNormalize}}.}
+}
+\details{
+  
+  If a formula is provided, the permutation test permutes sample (i.e. column) labels, so
+  essentially the effect is compared with the null distribution of
+  effects for *each particular gene-set separately*. This neutralizes the impact of
+  intra-sample correlations.
+  If the formula contains two or more covariates, the effect of interest
+  must be the first one in the formula. This effect's covariate values are permuted within each subgroup defined by identical values
+  on all other covariates. This means, that the other
+  covariates *must* be discrete, otherwise the analysis is meaningless. The effect of interest is the only one that 
+  can be continuous.
+    
+  If a formula is *not* provided, a row-permutation test is performed on average expression levels. This test examines 
+  whether each gene-set is differentially expressed (on the average), compared with a permutation baseline of 
+  random gene-sets of the same size.
+  
+}
+\value{
+      A matrix with the same number of rows as 'mat' and two columns,
+     "Lower" and "Upper".  The "Lower" ("Upper") column gives
+     the probability of seeing a t-statistic smaller (larger) than the
+     observed. If 'mat' had row names, so will the output.
+
+}
+\references{  }
+\author{ Assaf Oron}
+
+\note{
+This function is a generic template for GSEA permutation tests. The
+particular type of GSEA statistic 
+ used is determined by \code{\link{GSNormalize}}, which is called by this function. 
+}
+\section{Warnings }{
+ 1. Inference is *only* for the first term in the
+  model. If you want inference for more terms, re-run the function on the
+  same model, changing order of terms each time.
+
+2. To repeat: the adjusting covariates (all terms except the first) have to be discrete. Adding a continuous
+covariate with unique values for most samples, may result in an infinite
+loop. However, you *can* put a continuous covariate as your first term.
+}
+
+\seealso{  \code{\link[Category]{gseattperm}},\code{\link{GSNormalize}}}
+\examples{
+
+data(sample.ExpressionSet)
+
+### Generating random pseudo-gene-sets
+fauxGS=matrix(sample(c(0,1),size=50000,replace=TRUE,prob=c(.9,.1)),nrow=100)
+
+### inference for sex: sex is first term
+sexPvals=gsealmPerm(sample.ExpressionSet,~sex+type,mat=fauxGS,nperm=40)
+
+### inference for type: type is first term
+typePvals=gsealmPerm(sample.ExpressionSet,~type+sex,mat=fauxGS,nperm=40,removeShift=TRUE)
+
+### plotting the p-values; note that the effect direction depends upon
+### factor level order (defaults to alphabetical)
+layout(t(1:2))
+### Sex p-values are center-heavy, typical when the effect is dominated
+### by another effect
+hist(sexPvals[,2],10,main="Sex Effect p-values",xlab="p-values for Male minus Female",xlim=c(0,1))
+### The dominating effect is type, where there is a baseline shift in
+### favor of controls
+hist(typePvals[,1],10,main="Type Effect p-values",xlab="p-values for Case minus Control",xlim=c(0,1))
+
+############
+### Modeling type again - and now we add a baseline-shift removal (the 'removeShift' argument passed on to 'GSNormalize')
+typePvals1=gsealmPerm(sample.ExpressionSet,~type+sex,mat=fauxGS,nperm=40,removeShift=TRUE)
+### Modeling type again - and now the shift removal is by mean instead
+### of the default median
+typePvals2=gsealmPerm(sample.ExpressionSet,~type+sex,mat=fauxGS,nperm=40,removeShift=TRUE,removeStat=mean)
+
+### Now notice the differences between the 3 versions! This is a weird
+### dataset indeed; it's also important to undrestand which research
+### question you are trying to answer :)
+hist(typePvals1[,1],10,main="Type Effect p-values",xlab="p-values for Case minus Control",xlim=c(0,1))
+hist(typePvals2[,1],10,main="Type Effect p-values",xlab="p-values for Case minus Control",xlim=c(0,1))
+
+
+}
+\keyword{ methods}

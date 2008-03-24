@@ -1,0 +1,1 @@
+export (lmPerGene, gsealmPerm, resplot, restrip, CooksDPerGene, dfbetasPerGene, dffitsPerGene, Leverage, getResidPerGene, mnDiffPlot, GSNormalize, identity, one)
