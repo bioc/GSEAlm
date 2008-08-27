@@ -255,7 +255,7 @@ lmPhen <- lmPerGene(workingEset,~mol.biol)
 ##fit the t-tests model
 tobsChr <- rowttests(workingEset,"mol.biol")
 ## fit it via the linear-model interface
-lmEsts = lmPhen$coefficients[2,]/sqrt(lmPhen$coef.var[2,])
+lmEsts = lmPhen$tstat[2,]
 
 plot (tobsChr$stat,lmEsts,main="The t-test as a Linear Model",
 xlab="T-test t-statistic",ylab="One-Factor Linear Model t-statistic")
@@ -265,7 +265,7 @@ xlab="T-test t-statistic",ylab="One-Factor Linear Model t-statistic")
 
 workingEset$mol.biol<-relevel(workingEset$mol.biol,ref="NEG")
 lmPhen <- lmPerGene(workingEset,~mol.biol)
-lmEsts = lmPhen$coefficients[2,]/sqrt(lmPhen$coef.var[2,])
+lmEsts = lmPhen$tstat[2,]
 
 @
 
@@ -585,7 +585,7 @@ $\tau$ statistics and GS residuals.
 
 lmExpand <- lmPerGene(workingEset,~mol.biol+sex+kinet)
 lmExpandRes <- getResidPerGene(lmExpand,type="extStudent")
-lmExpandTees <- t(lmExpand$coefficients[2:4,]/sqrt(lmExpand$coef.var[2:4,]))
+lmExpandTees <- t(lmExpand$tstat[2:4,]
 lmExpandBandTees<-GSNormalize(lmExpandTees,AmatChr3)
 
 GSresidExpand=GSNormalize(exprs(lmExpandRes),AmatChr3)

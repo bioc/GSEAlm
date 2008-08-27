@@ -141,7 +141,7 @@ if (nvar>0) {
     permMat <- matrix(0, nrow = nrow(mat), ncol = nperm)
     rownames(permMat)=rownames(mat)
 
-    for (i in 1:nperm)  permMat[,i]=GSNormalize(t(obsRaw$coefficients),incidence=mat[,sample(1:ncol(mat))],fun2=identity,...)
+    for (i in 1:nperm)  permMat[,i]=GSNormalize(t(obsRaw$tstat),incidence=mat[,sample(1:ncol(mat))],fun2=identity,...)
 }
   return(pvalFromPermMat(observedStats, permMat))
 }
