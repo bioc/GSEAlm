@@ -66,7 +66,7 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE) {
   colnames(varbeta) = colnames(x)
 
   return(list(eS=eS, x = x, Hmat = Hmat, formula=formula,coefficients = beta,
-              sigmaSqr = var, coef.var = t(varbeta)),tstat=beta/sqrt(t(varbeta)))
+              sigmaSqr = var, coef.var = t(varbeta),tstat=beta/sqrt(t(varbeta))))
 }
 
 ##### GSEA inference for main effect using multiple regression and permutation
