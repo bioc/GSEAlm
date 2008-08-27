@@ -585,7 +585,7 @@ $\tau$ statistics and GS residuals.
 
 lmExpand <- lmPerGene(workingEset,~mol.biol+sex+kinet)
 lmExpandRes <- getResidPerGene(lmExpand,type="extStudent")
-lmExpandTees <- t(lmExpand$tstat[2:4,]
+lmExpandTees <- t(lmExpand$tstat[2:4,])
 lmExpandBandTees<-GSNormalize(lmExpandTees,AmatChr3)
 
 GSresidExpand=GSNormalize(exprs(lmExpandRes),AmatChr3)
