@@ -95,7 +95,7 @@ if (formula=="") {
 obsRaw=lmPerGene(eSet=eSet,formula=formula,na.rm=na.rm)
 
 if (nvar>0) {
-    observedStats= GSNormalize(obsRaw$tstat[2,]),incidence=mat,...)
+    observedStats= GSNormalize(obsRaw$tstat[2,],incidence=mat,...)
 } else {
     observedStats= GSNormalize(t(obsRaw$tstat),incidence=mat,fun2=identity,...)
 }
