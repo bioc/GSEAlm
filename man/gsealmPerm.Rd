@@ -66,7 +66,11 @@ covariate with unique values for most samples, may result in an infinite
 loop. However, you *can* put a continuous covariate as your first term.
 }
 
-\seealso{  \code{\link[Category]{gseattperm}},\code{\link{GSNormalize}}}
+\seealso{
+  \code{\link[Category]{gseattperm}},\code{\link{GSNormalize}}. The
+  \code{\link[GlobalAncova]{GlobalAncova}} provides a generic
+  $F$-test for model selection, while \code{\link{gsealmPerm}} can be
+  used as a Wald test for the addition of a single covariate to the model.}
 \examples{
 
 data(sample.ExpressionSet)

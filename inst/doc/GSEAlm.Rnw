@@ -44,7 +44,10 @@
   (GSEA). We demonstrate the package's main features, using the acute
   lymphoblastic leukemia (ALL) dataset, comparing the \texttt{BCR/ABL}
   and \texttt{NEG} phenotypes via GSEA based on chromosome-band
-  mapping of genes.
+  mapping of genes. If you want to follow the text while running the
+  code, please use the code from the \texttt{GSEAlm.R} file in the
+  same directory where this document is found, because there are some
+  code excerpts which were hidden from view in the tutorial below.
 
 \end{abstract}
 

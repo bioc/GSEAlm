@@ -71,7 +71,12 @@ incidence matrix as its first argument, and the gene-level stats as its second a
 In other words, both should have genes as rows. also, you can easily neutralize the effect of 'fun1', 'fun2' by setting
 "fun2 = one".
 }
-\seealso{ \code{\link{gsealmPerm}}, which relies heavily on this function }
+\seealso{ \code{\link{gsealmPerm}}, which relies heavily on this
+  function. The function  \code{\link[Category]{applyByCategory} from
+    the \code{\link[Category]{Category}} package has similar functionality and is
+    preferable when the applied function is
+    complicated. \code{\link{GSNormalize}} is better optimized for
+    matrix operations.}
 \examples{
 data(sample.ExpressionSet)
 lm1 = lmPerGene(sample.ExpressionSet,~sex+type)

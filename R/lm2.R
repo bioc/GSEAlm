@@ -66,7 +66,7 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE) {
   colnames(varbeta) = colnames(x)
 
   return(list(eS=eS, x = x, Hmat = Hmat, formula=formula,coefficients = beta,
-              sigmaSqr = var, coef.var = t(varbeta)))
+              sigmaSqr = var, coef.var = t(varbeta)),tstat=beta/sqrt(t(varbeta)))
 }
 
 ##### GSEA inference for main effect using multiple regression and permutation
@@ -95,9 +95,9 @@ if (formula=="") {
 obsRaw=lmPerGene(eSet=eSet,formula=formula,na.rm=na.rm)
 
 if (nvar>0) {
-    observedStats= GSNormalize(obsRaw$coefficients[2,]/sqrt(obsRaw$coef.var[2,]),incidence=mat,...)
+    observedStats= GSNormalize(obsRaw$tstat[2,]),incidence=mat,...)
 } else {
-    observedStats= GSNormalize(t(obsRaw$coefficients),incidence=mat,fun2=identity,...)
+    observedStats= GSNormalize(t(obsRaw$tstat),incidence=mat,fun2=identity,...)
 }
 
 ### Permutation loop; we do the intercept-only case separately below
@@ -127,7 +127,7 @@ if (nvar>0) {
 # (na.rm=FALSE since we already dealt with na's)
 
 ### record t-score for permuted variable
-        permMat[, i] <- temp.results$coefficients[2,]/sqrt(temp.results$coef.var[2,])
+        permMat[, i] <- temp.results$tstat[2,]
 
         i <- i + 1L
   }

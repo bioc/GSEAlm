@@ -46,11 +46,19 @@ lmPerGene(eSet, formula, na.rm=TRUE)
     for that model, the sum of the residuals squared divided by \code{n - p}.}
   \item{coef.var}{A matrix of dimension \code{p} by \code{G} containing
    the estimated variances for the model parameters, for each regression.}
+  \item{tstat}{A matrix of the same dimension as \code{coefficients},
+  containing the $t$-statistics for each model estimate. This is simply
+  \code{coefficients} divided by the square root of  \code{coef.var},
+  and is provided for convenience.} 
 }
-\author{ Robert Gentleman }
+\author{ Robert Gentleman, Assaf Oron }
 \seealso{\code{\link{getResidPerGene}} to extract row-by-row residuals; \code{\link{gsealmPerm}} for
   code that utilizes  'lmPerGene' for gene-set-enrichment analysis (GSEA); and  \code{\link{CooksDPerGene}} for diagnostic functions on
-  an object produced by 'lmPerGene'. }
+  an object produced by 'lmPerGene'. Applying a by-gene regression in
+  the manner performed here is a special case of a more generic
+  linear-model framework available in the \code{\link[GlobalAncova]{GlobalAncova}}
+  package; our assumption here is equivalent to a diagonal covariance structure
+  between genes, with unequal variances.}
 
 \examples{
 data(sample.ExpressionSet)

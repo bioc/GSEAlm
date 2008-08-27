@@ -21,6 +21,7 @@ colour=5,pch='+',...)  {
 
 setsize=sum(incidence[GSname,]>0)
 atomics=paste(atomic,"s",sep="")
+fac=factor(fac)
 k=nlevels(fac)
 
 lengths=table(fac)
@@ -65,6 +66,7 @@ if (resort) {
    ID=ID[colsort$ix]
 }
 
+fac=factor(fac)
 k=nlevels(fac)
 lengths=table(fac)
 tnames=levels(fac)
@@ -96,10 +98,11 @@ mnDiffPlot=function(GSname="All", exprmat, incidence=dumminc(exprmat),
 fac, atomic="Gene", core.text=paste("Mean Expression Difference by",
                     atomic),
 yname="Log Expression Ratio", xname="Log Expression",
-gnames=levels(fac), prefix="", fitline=FALSE, varsize=FALSE,
+gnames=levels(factor(fac)), prefix="", fitline=FALSE, varsize=FALSE,
 reverse=FALSE, ...) {
 
 layout(1)
+fac=factor(fac)
 lengths=table(fac)
 tnames=levels(fac)
 setsize=sum(incidence[GSname,]>0)
