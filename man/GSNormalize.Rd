@@ -72,7 +72,7 @@ In other words, both should have genes as rows. also, you can easily neutralize 
 "fun2 = one".
 }
 \seealso{ \code{\link{gsealmPerm}}, which relies heavily on this
-  function. The function  \code{\link[Category]{applyByCategory} from
+  function. The function  \code{\link[Category]{applyByCategory}} from
     the \code{\link[Category]{Category}} package has similar functionality and is
     preferable when the applied function is
     complicated. \code{\link{GSNormalize}} is better optimized for
