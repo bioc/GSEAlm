@@ -47,7 +47,9 @@
   mapping of genes. If you want to follow the text while running the
   code, please use the code from the \texttt{GSEAlm.R} file in the
   same directory where this document is found, because there are some
-  code excerpts which were hidden from view in the tutorial below.
+  code excerpts which were hidden from view in the tutorial below. A
+  more up-to-date and academically oriented exposition of the tools
+  coded in this package is available at \citet{OronEtAl08}.
 
 \end{abstract}
 
@@ -405,6 +407,9 @@ kinetColors <- ifelse(workingEset$kinet=="hyperd.","brown", "grey")
 ### In the heatmap we only use the lowest-level bands, or "leaves" of the graph
 
 ChrLeaves=leaves(AgraphChr3,"out")
+### for safety
+ChrLeaves=ChrLeaves[ChrLeaves %in% rownames(AmatChr3)]
+
 LeafGenes=which(colSums(AmatChr3[ChrLeaves,])>0)
 
 bandHeatmap=heatmap(stdrAchr[ChrLeaves,],scale="row",col = HMcols,
