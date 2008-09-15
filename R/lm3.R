@@ -10,13 +10,13 @@
 ####################3
 
 ### Gene-set indiviudal residual Boxplots by sample, by factor level -
-### for 2-level factors 
+### for 2-level factors
 ### Each point is a single residual from a single gene and sample
 
 resplot=function(GSname="All", resmat,incidence=dumminc(resmat), fac,
-atomic="Gene",core.text="Residuals by Sample", 
+atomic="Gene",core.text="Residuals by Sample",
 yname="Standardized Residual", xname="Sample ID", ID=colnames(resmat),
-lims=0,gnames=levels(fac), prefix="", horiz=FALSE,
+lims=0,gnames=levels(factor(fac)), prefix="", horiz=FALSE,
 colour=5,pch='+',...)  {
 
 setsize=sum(incidence[GSname,]>0)
@@ -50,10 +50,10 @@ for (a in 1:k) {
 restrip=function(GSname="All", resmat, incidence=dumminc(resmat), fac,
 atomic="Gene", core.text="Residuals by Sample",
 yname="Standardized Residual", xname="Sample ID", ID=colnames(resmat),
-gnames=levels(fac), prefix="", colour=c(2:4,6), resort=TRUE,
+gnames=levels(factor(fac)), prefix="", colour=c(2:4,6), resort=TRUE,
 horiz=FALSE, resort.fun=num.positive, pch='+',...) {
 
-vert=!horiz    
+vert=!horiz
 setsize=sum(incidence[GSname,]>0)
 myraw=resmat[incidence[GSname,]>0,]
 atomics=paste(atomic,"s",sep="")
@@ -149,4 +149,3 @@ num.positive=function(x) sum(x>0)
 num.extreme=function(x,lo,hi) sum(x<lo | x>hi)
 num.low=function(x,lo) sum(x<lo)
 num.high=function(x,hi) sum(x>hi)
-

@@ -21,13 +21,13 @@ resplot(GSname = "All", resmat, incidence = dumminc(resmat), fac,
 restrip(GSname = "All", resmat, incidence = dumminc(resmat), fac,
    atomic = "Gene", core.text = "Residuals by Sample",
   yname = "Standardized Residual", xname = "Sample ID", ID = colnames(resmat),
-  gnames = levels(fac), prefix = "", colour=c(2:4,6), resort=TRUE,
+  gnames = levels(factor(fac)), prefix = "", colour=c(2:4,6), resort=TRUE,
   horiz = FALSE, resort.fun=num.positive, pch='+', ...)
 
 mnDiffPlot(GSname = "All", exprmat, incidence = dumminc(exprmat), fac,
   atomic = "Gene", core.text = paste("Mean Expression Difference by",atomic),
   yname="Log Expression Ratio", xname="Log Expression",
-  gnames = levels(fac), prefix = "", fitline=FALSE, varsize=FALSE,
+  gnames = levels(factor(fac)), prefix = "", fitline=FALSE, varsize=FALSE,
   reverse=FALSE, ...)}
 \arguments{
   \item{GSname}{Gene-set Name. See "Details".}

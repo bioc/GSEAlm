@@ -621,7 +621,7 @@ bandHeatmapExp=heatmap(GSresidExpand[ChrLeaves,], scale="row",col = HMcols,
 \end{figure}
 
 <<lm3FacInferencePrep,fig=FALSE,results=hide,cache=TRUE,echo=FALSE>>=
-nperm=250
+nperm=125
 flagp=0.01
 @
 
