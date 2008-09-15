@@ -129,7 +129,7 @@ library("annotate")
 library("GOstats")
 library("graph")
 #require("Rgraphviz", quietly=TRUE)
-library("Rgraphviz")
+#library("Rgraphviz")
 library("hgu95av2.db")
 library("genefilter")
 library("ALL")
@@ -442,7 +442,7 @@ More interesting from a modeling perspective is the apparent
 block or checkerboard pattern of the heatmap. This pattern indicates a
 potential association between certain samples and the expression level of
 certain chromosomal locations, an association not explained by
-phenotype. 
+phenotype.
 
 
 A skeptic might ask whether perhaps the block pattern is only an
@@ -855,8 +855,8 @@ for visual problem identification.
 
 \section*{Session Information}
 \scriptsize{
-<<sessionInfo,results=tex,echo=FALSE>>= 
-toLatex(sessionInfo()) 
+<<sessionInfo,results=tex,echo=FALSE>>=
+toLatex(sessionInfo())
 @
 }
 \end{document}
