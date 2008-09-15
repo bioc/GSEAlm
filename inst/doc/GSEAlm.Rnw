@@ -503,52 +503,51 @@ model expansion.
 
 Another factor of interest, which can be used as a benchmark because
 it certainly plays a role in the expression of some genes, is
-sex. Genes on the Y chromosome can only be expressed among males. Y
-chromosome bands occupy only two adjacent rows in Fig. \ref{fig:hm1},
-and therefore the sex-associated pattern is not highly visible. Yet,
-GS residuals for the entire Y-chromosome does show a marked gender effect,
-as expected (Fig. \ref{fig:Yres}). Interestingly, the pattern
-is somewhat noisy, to the extent that one may suspect some gender
-mis-assignment problems in the dataset documentation, especially regarding
-several male samples whose Y-chromosome GS residuals are quite
-negative. A closer inspection of this issue can be provided by looking
-at all individual-gene Y chromosome residuals, and clustering them by sample
-(Fig. \ref{fig:YresidsDetail}); this can be achieved via the \texttt{resplot} function.
-The graphical inspection does not yield a clear-cut answer to
-the question whether such errors had occurred. There are a few outlying
-samples in each gender, but none of them show ``typical'' opposite-gender expression levels.
-Moreover, there is also a high degree of overall variability.
+sex. We conclude that adding sex, too, as a covariate in the
+model may be of use (a more detailed discussion of Y-chromosome expression and sex assignment in this dataset is found in \citet{OronEtAl08}).
 
-In any case, we conclude that adding sex, too, as a covariate in the
-model may be of use.
-
-%%FIXME: you only use the phrase super-residual in the figure
-%%captions. You need to define it, and I suggest a different name -
-%%aggregate residual or GS residual or something of that nature.
-
-<<YrABoxplot,results=hide,fig=TRUE,include=FALSE,prefix=FALSE,cache=TRUE>>=
-
-resY <- stdrAchr["Y",]
-boxplot(resY ~ workingEset$sex,range=1,names=c("Female","Male"),ylab="GS Residual",
-        cex=0.8,cex.axis=1.5,boxwex=.3,cex.lab=1.5)
-lines(c(-1,3),rep(0,2),col=2)
-@
-
-\begin{figure}[!h] \centering
-  \includegraphics[height=0.3\textwidth,width=0.3\textwidth]{YrABoxplot}
-\caption{\label{fig:Yres} Boxplot of GS residuals for the Y-chromosome, obtained from a linear
-model with only phenotype as predictor and grouped by sex.}
-\end{figure}
-
-<<YResDetailedBoxplot,fig=TRUE, include=FALSE, prefix=FALSE,cache=TRUE>>=
-resplot(GSname="Y",resmat=exprs(lmPhenRes),gnames=c("Female","Male"),incidence=AmatChr3,fac=workingEset$sex,cex.axis=0.7,cex=0.4)
-@
-\begin{figure} [!h]
-  \centering \includegraphics[height=0.7\textheight,width=0.8\textwidth]{YResDetailedBoxplot}
-\caption{\label{fig:YresidsDetail}Raw residuals of Y-chromosome genes from
- linear model of gene expression on phenotype for the \Rpackage{ALL} dataset,
- grouped by sample and arranged by sex (females on top, males on bottom).}
-\end{figure}
+%Genes on the Y chromosome can only be expressed among males. Y
+%chromosome bands occupy only two adjacent rows in Fig. \ref{fig:hm1},
+%and therefore the sex-associated pattern is not highly visible. Yet,
+%GS residuals for the entire Y-chromosome does show a marked gender effect,
+%as expected (Fig. \ref{fig:Yres}). Interestingly, the pattern
+%is somewhat noisy, to the extent that one may suspect some gender
+%mis-assignment problems in the dataset documentation, especially regarding
+%several male samples whose Y-chromosome GS residuals are quite
+%negative. A closer inspection of this issue can be provided by looking
+%at all individual-gene Y chromosome residuals, and clustering them by sample
+%(Fig. \ref{fig:YresidsDetail}); this can be achieved via the \texttt{resplot} function.
+%The graphical inspection does not yield a clear-cut answer to
+%the question whether such errors had occurred. There are a few outlying
+%samples in each gender, but none of them show ``typical'' opposite-gender expression levels.
+%Moreover, there is also a high degree of overall variability.
+%
+%In any case, 
+%
+%
+%<<YrABoxplot,results=hide,fig=TRUE,include=FALSE,prefix=FALSE,cache=TRUE>>=
+%
+%resY <- stdrAchr["Y",]
+%boxplot(resY ~ workingEset$sex,range=1,names=c("Female","Male"),ylab="GS Residual",
+%        cex=0.8,cex.axis=1.5,boxwex=.3,cex.lab=1.5)
+%lines(c(-1,3),rep(0,2),col=2)
+%@
+%
+%\begin{figure}[!h] \centering
+%  \includegraphics[height=0.3\textwidth,width=0.3\textwidth]{YrABoxplot}
+%\caption{\label{fig:Yres} Boxplot of GS residuals for the Y-chromosome, obtained from a linear
+%model with only phenotype as predictor and grouped by sex.}
+%\end{figure}
+%
+%<<YResDetailedBoxplot,fig=TRUE, include=FALSE, prefix=FALSE,cache=TRUE>>=
+%resplot(GSname="Y",resmat=exprs(lmPhenRes),gnames=c("Female","Male"),incidence=AmatChr3,fac=workingEset$sex,cex.axis=0.7,cex=0.4)
+%@
+%\begin{figure} [!h]
+%  \centering \includegraphics[height=0.7\textheight,width=0.8\textwidth]{YResDetailedBoxplot}
+%\caption{\label{fig:YresidsDetail}Raw residuals of Y-chromosome genes from
+% linear model of gene expression on phenotype for the \Rpackage{ALL} dataset,
+% grouped by sample and arranged by sex (females on top, males on bottom).}
+%\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -689,7 +688,9 @@ like to directly gauge the absolute chromosome-level expression
 differences between the hyperdiploid and diploid groups.
 
 <<lm3FacInfHyper,fig=FALSE>>=
-pvalsHyper=gsealmPerm(workingEset,~kinet+mol.biol+sex,AmatChr3[adj(AgraphChr3,"ORGANISM:Homo sapiens")$O,],nperm=nperm)
+
+chrNames=c(as.character(1:22),"X")
+pvalsHyper=gsealmPerm(workingEset,~kinet+mol.biol+sex,AmatChr3[chrNames,],nperm=nperm)
 
 pvalsHyper[pvalsHyper[,2]<flagp,2] ### over-expressed list for hyperdiploids
 
@@ -715,7 +716,7 @@ biological significance.
 
 <<hyperdiploidHeatmap,fig=TRUE,results=hide, include=FALSE, prefix=FALSE,cache=TRUE>>=
 
-GSChromeResid=GSresidExpand[adj(AgraphChr3,"ORGANISM:Homo sapiens")$O,]
+GSChromeResid=GSresidExpand[chrNames,]
 hyperHmap=heatmap(GSChromeResid[pvalsHyper[,2]<0.1,lmExpandRes$kinet=="hyperd."],
 scale="row",col = HMcols,keep.dendro=TRUE,distfun=onecor,xlab="Sample ID",ylab="Chromosome")
 @

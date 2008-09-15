@@ -9,23 +9,23 @@
 Diagnostic plots for GSEA. 'resplot' and 'restrip' group residuals (or
   expression levels) from a specific gene-set by sample. 'mnDiffPlot'
   shows mean expression differences for a dichotomous phenotype, by
-  gene, for a specific gene set.   
+  gene, for a specific gene set.
 }
 \usage{
-resplot(GSname = "All", resmat, incidence = dumminc(resmat), fac, 
-     atomic = "Gene", core.text = "Residuals by Sample", 
-     yname = "Standardized Residual", xname = "Sample ID", 
-     ID = colnames(resmat), lims = 0, gnames = levels(fac), 
+resplot(GSname = "All", resmat, incidence = dumminc(resmat), fac,
+     atomic = "Gene", core.text = "Residuals by Sample",
+     yname = "Standardized Residual", xname = "Sample ID",
+     ID = colnames(resmat), lims = 0, gnames = levels(factor(fac)),
      prefix = "", horiz = FALSE, colour=5,pch='+',...)
 
 restrip(GSname = "All", resmat, incidence = dumminc(resmat), fac,
-   atomic = "Gene", core.text = "Residuals by Sample", 
+   atomic = "Gene", core.text = "Residuals by Sample",
   yname = "Standardized Residual", xname = "Sample ID", ID = colnames(resmat),
-  gnames = levels(fac), prefix = "", colour=c(2:4,6), resort=TRUE, 
+  gnames = levels(fac), prefix = "", colour=c(2:4,6), resort=TRUE,
   horiz = FALSE, resort.fun=num.positive, pch='+', ...)
 
-mnDiffPlot(GSname = "All", exprmat, incidence = dumminc(exprmat), fac, 
-  atomic = "Gene", core.text = paste("Mean Expression Difference by",atomic), 
+mnDiffPlot(GSname = "All", exprmat, incidence = dumminc(exprmat), fac,
+  atomic = "Gene", core.text = paste("Mean Expression Difference by",atomic),
   yname="Log Expression Ratio", xname="Log Expression",
   gnames = levels(fac), prefix = "", fitline=FALSE, varsize=FALSE,
   reverse=FALSE, ...)}
@@ -59,7 +59,7 @@ mnDiffPlot(GSname = "All", exprmat, incidence = dumminc(exprmat), fac,
     be proportional to (t-test style) standard errors}
    \item{reverse}{ ('mnDiffPlot' only)logical: whether the factor's order
      should be reversed so that the second level is on the x-axis rather
-     than the first one} 
+     than the first one}
   \item{\dots}{ Additional graphical parameters passed on to the generic
     plotting functions.}
 }
