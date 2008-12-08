@@ -47,7 +47,7 @@ mnDiffPlot(GSname = "All", exprmat, incidence = dumminc(exprmat), fac,
   \item{colour}{color of boxplot filling ('resplot') or symbols
     ('restrip')}
   \item{pch}{the plotting symbol}
-  \item{resort} {('restrip' only) whether to sort groups for better
+  \item{resort}{('restrip' only) whether to sort groups for better
     visibility}
   \item{resort.fun}{('restrip' only) what function to sort groups
   by. Ignored unless 'resort==TRUE'. See \code{\link{stripchart}} documentation for

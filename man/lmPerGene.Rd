@@ -17,7 +17,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
       the '~' symbol. The LHS is automatically set as the expression
       levels provided in  \code{eSet}. The names of all predictors must
     exist in the phenotypic data of \code{eSet}.}
-  \item{na.rm} { Whether to remove missing observations. }
+  \item{na.rm}{ Whether to remove missing observations. }
 }
 \details{
  This function efficiently computes the least squares fit of a linear
