@@ -9,6 +9,7 @@
   row of a gene expression matrix (or similar dataset). Computation
   speed is achieved via straightforward matrix algebra. Most
   commonly-used residual types are available.}
+
 \usage{
 getResidPerGene(lmobj, type = "extStudent")}
 \arguments{
@@ -16,20 +17,25 @@ getResidPerGene(lmobj, type = "extStudent")}
   \item{type}{ A string indicating the type of residual requeseted
   (defaults to externally-Studentized). }
 }
+
 \details{ Types of residuals now available:
-  \item{"response"}{Response residuals, observed minus fitted}
-  \item{"normalized"}{Response residuals divided by the estimated residual
-    S.E.}
-  \item{"intStudent"}{Internally Studentized residuals, often referred
-    to as "Standardized"}
-  \item{default}{Externally Studentized residuals, which can be used
-  directly for outlier identification}
+  \describe{
+    \item{"response"}{Response residuals, observed minus fitted}
+    \item{"normalized"}{Response residuals divided by the estimated residual
+      S.E.}
+    \item{"intStudent"}{Internally Studentized residuals, often referred
+      to as "Standardized"}
+    \item{default}{Externally Studentized residuals, which can be used
+    directly for outlier identification}
   }
-  \value{
+}
+
+\value{
   Returns a instance of \code{ExpressionSet} where the expression matrix
   contains the residuals. The \code{phenoData} are inherited from
   \code{lmobj$eS}.
 }
+
 
 \author{ Robert Gentleman, Assaf Oron }
 \seealso{\code{\link{lmPerGene}}, \code{\link{resplot}},\code{\link{dfbetasPerGene}},\code{\link{influence.measures}} }

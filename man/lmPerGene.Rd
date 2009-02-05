@@ -29,7 +29,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
   Since the independent variables are the same in each model fitting,
   instead of repeatedly fitting linear model for each gene,
   \code{lmPerGene} accelarates the fitting process by calculating the
-  hat matrix \code{X(X'X)^(-1)X'} first.  Then matrix multiplication, and
+  hat matrix \eqn{X(X'X)^(-1)X'} first.  Then matrix multiplication, and
   \code{solve} are to compute estimates of the model parameters.
 
   Leaving the formula blank (the default) will calculate an 
@@ -37,8 +37,8 @@ lmPerGene(eSet, formula, na.rm=TRUE)
 }
 \value{
   A list with components:
-  \item(eS){The \code{ExpressionSet} used in the model fitting.}
-  \item(x){The design matrix of the coded predictor variables.}
+  \item{eS}{The \code{ExpressionSet} used in the model fitting.}
+  \item{x}{The design matrix of the coded predictor variables.}
   \item{Hmat}{The Hat matrix.}
   \item{coefficients}{A matrix of dimension \code{p} by \code{G}
    containing the estimated model parameters.}

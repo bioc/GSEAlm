@@ -10,6 +10,7 @@ This is an extension of standard linear-model diagnostics for use with
 gene-expression datasets, in which the same model was run simultaneously
 on each row of a response matrix.
 }
+
 \usage{
  dfbetasPerGene(lmobj)
 
@@ -27,23 +28,24 @@ on each row of a response matrix.
   upon model fit, by calculating values after removal of the observation
   and comparing to the complete-data version.
 
-  DFFITS$_i$ measures the distance on the response scale, between fitted
+  DFFITS\eqn{_i} measures the distance on the response scale, between fitted
   values with and without observation y\_i, at point i. The distance
   is normalized by the regression standard error and the point's
   leverage (see below).
 
-  Cook's D$_i$ is the square of the distance, in parameter space, between
+  Cook's D\eqn{_i} is the square of the distance, in parameter space, between
   parameter estimates witn and without observation y\_i, normalized and
   rescaled by standard errors and by a factor depending upon leverage.
 
-  DFBETAS$_{i,j}$ breaks the square root of Cook's D into its Euclidean
+  DFBETAS\eqn{_{i,j}} breaks the square root of Cook's D into its Euclidean
   components for each parameter j - but uses a somewhat different
   scaling function from Cook's D.
 
   The leverage is the diagonal of the "hat matrix"
-  \code{X'(X'X)^{-1}X'}. This measure provides the relative weight of
+  \eqn{X'(X'X)^{-1}X'}. This measure provides the relative weight of
   observation y\_i in the fitted value y-hat\_i. Typically observations
-  with extreme X values (or belonging to smaller groups if model variables are categorical) will have high leverage.
+  with extreme X values (or belonging to smaller groups if model variables are
+  categorical) will have high leverage. 
 
   All these functions exist for standard regression, see
   \code{\link{influence.measures}}.
@@ -59,8 +61,8 @@ on each row of a response matrix.
 }
 \value{
  \code{\link{dfbetasPerGene}} A G x n x p array, where G, n are the
- number of rows and columns in the input's expression matrix, respectively, and p the number of
- parameters in the linear model (including intercept)
+ number of rows and columns in the input's expression matrix, respectively,
+ and p the number of parameters in the linear model (including intercept)
 
  \code{\link{CooksDPerGene}} A G x n matrix.
 
@@ -68,8 +70,8 @@ on each row of a response matrix.
 
  \code{\link{Leverage}} A vector of length n, corresponding to the
  diagonal of the "hat matrix".
-
 }
+
 \references{
 
      Belsley, D. A., Kuh, E. and Welsch, R. E. (1980) Regression
