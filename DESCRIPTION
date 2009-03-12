@@ -1,7 +1,7 @@
 Package: GSEAlm
 Title: Linear Model Toolset for Gene Set Enrichment Analysis
-Version: 1.3.2
-Author: Assaf Oron and Robert Gentleman (with contributions from S. Falcon and Z. Jiang)
+Version: 1.3.3
+Author: Assaf Oron, Robert Gentleman (with contributions from S. Falcon and Z. Jiang)
 Description: Models and methods for fitting linear models
   to gene expression data, together with tools for computing
   and using various regression diagnostics.

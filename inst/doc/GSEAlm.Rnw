@@ -30,7 +30,7 @@
 
 \title{GSEAlm Package}
 \author{Assaf P. Oron, Robert Gentleman (with contributions from S. Falcon and Z. Jiang) \\
-  aoron@fhcrc.org,rgentlm@fhcrc.org}
+  assaf.oron@gmail.com}
 % \address{Computational Biology, 1100 Fairview Ave. N. M2-B876,
 %         P.O. Box 19024, Seattle, Washington 98109-1024}
 
@@ -332,10 +332,6 @@ horiz=TRUE,lims=c(-5,5),xname="",col=5,cex=.3)
 
 \section{Gene-Set Residuals}
 
-%%FIXME: we also propose to use y ~ 1+ x, where x = 0/1 depending on
-%%membership in S, and that is what I use pretty much exclusively now,
-%%it might be good to think about if that approach is suitable here
-
 We proceed to the next GSEA step: producing summary statistics of the
 phenotype effect by chromosome band. There are several ways, all
 roughly equivalent, to achieve this
@@ -522,7 +518,7 @@ model may be of use (a more detailed discussion of Y-chromosome expression and s
 %samples in each gender, but none of them show ``typical'' opposite-gender expression levels.
 %Moreover, there is also a high degree of overall variability.
 %
-%In any case, 
+%In any case,
 %
 %
 %<<YrABoxplot,results=hide,fig=TRUE,include=FALSE,prefix=FALSE,cache=TRUE>>=

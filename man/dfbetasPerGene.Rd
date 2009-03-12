@@ -14,9 +14,9 @@ on each row of a response matrix.
 \usage{
  dfbetasPerGene(lmobj)
 
- CooksDPerGene(lmobj) 
+ CooksDPerGene(lmobj)
 
- dffitsPerGene(lmobj) 
+ dffitsPerGene(lmobj)
 
  Leverage(lmobj)
 }
@@ -45,19 +45,19 @@ on each row of a response matrix.
   \eqn{X'(X'X)^{-1}X'}. This measure provides the relative weight of
   observation y\_i in the fitted value y-hat\_i. Typically observations
   with extreme X values (or belonging to smaller groups if model variables are
-  categorical) will have high leverage. 
+  categorical) will have high leverage.
 
   All these functions exist for standard regression, see
   \code{\link{influence.measures}}.
 
   The functions described here are extensions for the case in which the
   response is a matrix, and the same linear model is run on each row separately.
-  
+
   For more details, see the references below.
 
   All functions are implemented in
-  matrix form, which means they run quite fast. 
-  
+  matrix form, which means they run quite fast.
+
 }
 \value{
  \code{\link{dfbetasPerGene}} A G x n x p array, where G, n are the
@@ -96,7 +96,7 @@ on each row of a response matrix.
 
 }
 
-\author{Robert Gentleman, Assaf Oron }
+\author{Robert Gentleman, Assaf Oron}
 
 \note{ The commonly-cited reference alert thresholds for diagnostic measures such as Cook's $D$
   and DFBETAS, found in older references, appear to be out of date. See LaMotte (1999) and Jensen

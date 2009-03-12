@@ -66,7 +66,7 @@ getResidPerGene <-  function(lmobj, type="extStudent") {
 ### Accepted types: response, normalized, internally Studentized (a.k.a. standardized) and externally Studentized (default)
 
     nSamp = ncol(lmobj$eS)
-  dMat = diag(nSamp) - lmobj$Hmat
+  dMat = diag(nSamp) - lmobj$Hmat  ### Creating an I-H matrix
   e = crossprod(t(exprs(lmobj$eS)),dMat)
 
 

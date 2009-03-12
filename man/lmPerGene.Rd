@@ -8,7 +8,7 @@
   faster than repeated calls to \code{lm}.
 }
 \usage{
-lmPerGene(eSet, formula, na.rm=TRUE)
+lmPerGene(eSet, formula, na.rm=TRUE,pooled=FALSE)
 }
 \arguments{
   \item{eSet}{ An \code{ExpressionSet} object.}
@@ -18,6 +18,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
       levels provided in  \code{eSet}. The names of all predictors must
     exist in the phenotypic data of \code{eSet}.}
   \item{na.rm}{ Whether to remove missing observations. }
+  \item{pooled}{ Whether to pool the variance calculation across all genes. }
 }
 \details{
  This function efficiently computes the least squares fit of a linear
@@ -32,7 +33,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
   hat matrix \eqn{X(X'X)^(-1)X'} first.  Then matrix multiplication, and
   \code{solve} are to compute estimates of the model parameters.
 
-  Leaving the formula blank (the default) will calculate an 
+  Leaving the formula blank (the default) will calculate an
   intercept-only model, useful for generic pattern and outlier identification.
 }
 \value{
@@ -42,6 +43,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
   \item{Hmat}{The Hat matrix.}
   \item{coefficients}{A matrix of dimension \code{p} by \code{G}
    containing the estimated model parameters.}
+  \item{pooled}{Whether the variance was pooled (this affects ``coef.var'' and ``tstat'', but not ``sigmaSqr'').}
   \item{sigmaSqr}{A vector of length $G$ containing the mean square error
     for that model, the sum of the residuals squared divided by \code{n - p}.}
   \item{coef.var}{A matrix of dimension \code{p} by \code{G} containing
@@ -49,7 +51,7 @@ lmPerGene(eSet, formula, na.rm=TRUE)
   \item{tstat}{A matrix of the same dimension as \code{coefficients},
   containing the $t$-statistics for each model estimate. This is simply
   \code{coefficients} divided by the square root of  \code{coef.var},
-  and is provided for convenience.} 
+  and is provided for convenience.}
 }
 \author{ Robert Gentleman, Assaf Oron }
 \seealso{\code{\link{getResidPerGene}} to extract row-by-row residuals; \code{\link{gsealmPerm}} for

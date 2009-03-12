@@ -8,7 +8,7 @@ level, potentially adjusting for the effect of other variables via a
 linear model. This is a generalization and upgrade of \code{\link[Category]{gseattperm}}.
 }
 \usage{
-gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,...)
+gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,pooled=FALSE,...)
 }
 \arguments{
   \item{eSet}{ An \code{ExpressionSet} object.}
@@ -21,11 +21,13 @@ gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,...)
           and each column representing a gene.  A 1 indicates membership of a gene in a gene set. }
   \item{nperm}{Number of permutations used to simulate the reference
           null distribution.}
-   \item{na.rm}{Should missing observations be ignored? }
+   \item{na.rm}{Should missing observations be ignored? (passed on to \code{\link{lmPerGene}})  }
+   \item{pooled}{Should variance be pooled across all genes? 
+(passed on to \code{\link{lmPerGene}})}
   \item{...}{Additional parameters passed on to \code{\link{GSNormalize}}.}
 }
 \details{
-  
+
   If a formula is provided, the permutation test permutes sample (i.e. column) labels, so
   essentially the effect is compared with the null distribution of
   effects for *each particular gene-set separately*. This neutralizes the impact of
@@ -33,13 +35,13 @@ gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,...)
   If the formula contains two or more covariates, the effect of interest
   must be the first one in the formula. This effect's covariate values are permuted within each subgroup defined by identical values
   on all other covariates. This means, that the other
-  covariates *must* be discrete, otherwise the analysis is meaningless. The effect of interest is the only one that 
+  covariates *must* be discrete, otherwise the analysis is meaningless. The effect of interest is the only one that
   can be continuous.
-    
-  If a formula is *not* provided, a row-permutation test is performed on average expression levels. This test examines 
-  whether each gene-set is differentially expressed (on the average), compared with a permutation baseline of 
+
+  If a formula is *not* provided, a row-permutation test is performed on average expression levels. This test examines
+  whether each gene-set is differentially expressed (on the average), compared with a permutation baseline of
   random gene-sets of the same size.
-  
+
 }
 \value{
       A matrix with the same number of rows as 'mat' and two columns,
@@ -49,12 +51,12 @@ gsealmPerm(eSet, formula = "", mat, nperm, na.rm = TRUE,...)
 
 }
 \references{  }
-\author{ Assaf Oron}
+\author{Assaf Oron}
 
 \note{
 This function is a generic template for GSEA permutation tests. The
-particular type of GSEA statistic 
- used is determined by \code{\link{GSNormalize}}, which is called by this function. 
+particular type of GSEA statistic
+ used is determined by \code{\link{GSNormalize}}, which is called by this function. Permutations are generated via repeated calls to \code{\link{lmPerGene}}.
 }
 \section{Warnings }{
  1. Inference is *only* for the first term in the
@@ -67,8 +69,8 @@ loop. However, you *can* put a continuous covariate as your first term.
 }
 
 \seealso{
-  \code{\link[Category]{gseattperm}},\code{\link{GSNormalize}}. The
-  \code{\link[GlobalAncova]{GlobalAncova}} provides a generic
+  \code{\link[Category]{gseattperm}},\code{\link{GSNormalize}}, \code{\link{lmPerGene}}. The
+  \code{\link[GlobalAncova]{GlobalAncova}} package provides a generic
   $F$-test for model selection, while \code{\link{gsealmPerm}} can be
   used as a Wald test for the addition of a single covariate to the model.}
 \examples{

@@ -93,7 +93,7 @@ optionally plots a loess fit for expression differences (if 'fitline=TRUE').
 
 }
 
-\author{Assaf Oron }
+\author{Assaf Oron}
 \note{ One can use 'resplot'/'restrip' to plot raw expression values rather
 than residuals; it all depends on what's in the data matrix.
 

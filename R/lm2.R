@@ -14,7 +14,7 @@
 #note the NA handling is still not great, as we don't yet
 # deal with NA's in the ExpressionSet
 
-lmPerGene <- function(eSet,formula="", na.rm = TRUE) {
+lmPerGene <- function(eSet,formula="", na.rm = TRUE,pooled=FALSE) {
 
   if (formula=="") {
 
@@ -58,15 +58,20 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE) {
   xy = exprs(eS) %*% x
   res = exprs(eS) %*% dMat
   beta = solve(xx, t(xy))
-  varr = rowSums( exprs(eS) * res)/(nSamp - k)
+  varr = rowSums( exprs(eS) * res)/(nSamp - k) ## vector of raw residual variances
+
+  varr2=varr
+  if (pooled) varr2=mean(varr)
 
   varbeta = matrix(diag(xxinv), ncol=k, nrow=nrow(eS),
      byrow=TRUE)
-  varbeta = apply(varbeta, 2, function(x) x* varr)
+  varbeta = apply(varbeta, 2, function(x) x* varr2)
+
+
   colnames(varbeta) = colnames(x)
 
-  return(list(eS=eS, x = x, Hmat = Hmat, formula=formula,coefficients = beta,
-              sigmaSqr = var, coef.var = t(varbeta),tstat=beta/sqrt(t(varbeta))))
+  return(list(eS=eS, x = x, Hmat = Hmat, formula=formula,coefficients = beta, pooled=pooled,
+              sigmaSqr = varr, coef.var = t(varbeta),tstat=beta/sqrt(t(varbeta))))
 }
 
 ##### GSEA inference for main effect using multiple regression and permutation
@@ -77,7 +82,7 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE) {
 
 ##### This is an extension of "gseattperm"
 
-gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,...) {
+gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,pooled=FALSE,...) {
 
 ### For the most part we rely on 'lmPerGene' for formula validation, NA removal, etc. etc.
 
@@ -92,7 +97,7 @@ if (formula=="") {
 
 ### The observed t-values for the main effect
 
-obsRaw=lmPerGene(eSet=eSet,formula=formula,na.rm=na.rm)
+obsRaw=lmPerGene(eSet=eSet,formula=formula,na.rm=na.rm,pooled=pooled)
 
 if (nvar>0) {
     observedStats= GSNormalize(obsRaw$tstat[2,],incidence=mat,...)
@@ -123,7 +128,7 @@ if (nvar>0) {
         } else if (nvar==1) {
             pData(perm.eset)[,xvarnames[1]]<-pData(eSet)[sample(1:nSamp),xvarnames[1]]
         }
-        temp.results<-lmPerGene(eSet=perm.eset,formula=formula,na.rm=na.rm)
+        temp.results<-lmPerGene(eSet=perm.eset,formula=formula,na.rm=na.rm,pooled=pooled)
 # (na.rm=FALSE since we already dealt with na's)
 
 ### record t-score for permuted variable
