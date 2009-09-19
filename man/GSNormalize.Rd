@@ -4,12 +4,14 @@
 \alias{one}
 \title{Aggregating and calculating expression statistics by Gene Set}
 \description{
- Provides an interface for producing aggregate gene-set statistics, for gene-set-enrichment analysis (GSEA). 
- The function is best suited for mean or rescaled-mean GSEA approaches, but is hopefully generic enough 
+ Provides an interface for producing aggregate gene-set statistics, for
+ gene-set-enrichment analysis (GSEA).  The function is best suited for
+ mean or rescaled-mean GSEA approaches, but is hopefully generic enough  
  to enable other approaches as well.
 }
 \usage{
-GSNormalize(dataset, incidence, gseaFun = crossprod, fun1 = "/", fun2 = sqrt, removeShift=FALSE, removeStat=mean, ...)
+GSNormalize(dataset, incidence, gseaFun = crossprod, fun1 = "/",
+            fun2 = sqrt, removeShift=FALSE, removeStat=mean, ...) 
 identity(x)
 one(x)
 }
@@ -73,7 +75,7 @@ In other words, both should have genes as rows. also, you can easily neutralize 
 }
 \seealso{ \code{\link{gsealmPerm}}, which relies heavily on this
   function. The function  \code{\link[Category]{applyByCategory}} from
-    the \code{\link[Category]{Category}} package has similar functionality and is
+    the \code{Category} package has similar functionality and is 
     preferable when the applied function is
     complicated. \code{\link{GSNormalize}} is better optimized for
     matrix operations.}
