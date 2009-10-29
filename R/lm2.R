@@ -82,7 +82,7 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE,pooled=FALSE) {
 
 ##### This is an extension of "gseattperm"
 
-gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,pooled=FALSE,...) {
+gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,pooled=FALSE,details=FALSE,...) {
 
 ### For the most part we rely on 'lmPerGene' for formula validation, NA removal, etc. etc.
 
@@ -148,7 +148,9 @@ if (nvar>0) {
 
     for (i in 1:nperm)  permMat[,i]=GSNormalize(t(obsRaw$tstat),incidence=mat[,sample(1:ncol(mat))],fun2=identity,...)
 }
+if (!detailed) {
   return(pvalFromPermMat(observedStats, permMat))
+  } else return (list(pvalues=pvalFromPermMat(observedStats,permMat),lmfit=obsRaw,stats=observedStats,perms=permMat))
 }
 
 
@@ -161,7 +163,7 @@ pvalFromPermMat <- function(obs, perms) {
 
     tempObs <- rep(obs, ncol(perms))
     dim(tempObs) <- dim(perms)
-    pvals[ , 1] <- rowSums(perms <= tempObs)/N
-    pvals[ , 2] <- rowSums(perms >= tempObs)/N
+    pvals[ , 1] <- (1+rowSums(perms <= tempObs))/(N+1)
+    pvals[ , 2] <- (1+rowSums(perms >= tempObs))/(N+1)
     pvals
 }
