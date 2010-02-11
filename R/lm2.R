@@ -82,7 +82,7 @@ lmPerGene <- function(eSet,formula="", na.rm = TRUE,pooled=FALSE) {
 
 ##### This is an extension of "gseattperm"
 
-gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,pooled=FALSE,details=FALSE,...) {
+gsealmPerm=function (eSet,formula="",mat,nperm,na.rm=TRUE,pooled=FALSE,detailed=FALSE,...) {
 
 ### For the most part we rely on 'lmPerGene' for formula validation, NA removal, etc. etc.
 
